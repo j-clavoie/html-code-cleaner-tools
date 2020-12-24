@@ -1,0 +1,181 @@
+{
+	"name": "html-code-cleaner",
+	"displayName": "HTML Code Cleaner",
+	"description": "Extension to remove/replace/remove part of unwanted/useless code or not compliant with our publishings rules or to be compliant with accessibility.",
+	"version": "0.0.6",
+	"publisher": "j-clavoie",
+	"engines": {
+		"vscode": "^1.30.0"
+	},
+	"categories": [
+		"Other"
+	],
+	"activationEvents": [
+		"onCommand:ddpd.code-cleaner_begin",
+		"onCommand:ddpd.code-cleaner_end",
+		"onCommand:ddpd.convert-special-characters"
+	],
+	"main": "./src/extension.js",
+	"contributes": {
+		"commands": [
+			{
+				"command": "ddpd.code-cleaner_begin",
+				"title": "DDPD - Code Cleaner - Begin"
+			},
+			{
+				"command": "ddpd.code-cleaner_end",
+				"title": "DDPD - Code Cleaner - End"
+			},
+			{
+				"command": "ddpd.convert-special-characters",
+				"title": "DDPD - Convert special characters"
+			}
+		],
+		"configuration": {
+			"title": "HTML Code Cleaner",
+			"properties": {
+				"html-code-cleaner.Language": {
+					"description": "Select the language of the text in the code",
+					"type": "array",
+					"default": [
+						{
+							"langName": "English",
+							"langCode": "en"
+						},
+						{
+							"langName": "French",
+							"langCode": "fr"
+						}
+					]
+				},
+				"html-code-cleaner.domainsToDelete": {
+					"description": "List of domains (array of string) to remove from links. Example: 'domain.com', 'www.domain.com', 'apps.domain.com'.",
+					"type": "array",
+					"default": []
+				},
+				"html-code-cleaner.includeSubDomainsInDeletion": {
+					"description": "Allows deletion of subdomains. Ex.: abc.def.domain.com (abc.dev) are sub-domains and will be deleted. If set to FALSE, only domains defined in \"Domains To Delete\" will be deleted specificly.",
+					"type": "boolean",
+					"default": true
+				},
+				"html-code-cleaner.convertFrenchNumbers": {
+					"description": "Replace space by no-blank-space in French number. ex: 9 999 $ = 9&#160;999&#160;$",
+					"type": "boolean",
+					"default": true
+				},
+				"html-code-cleaner.SearchReplaceBegin": {
+					"description": "Array of Search and replace Regexs to execute with the Begin script. Important to double escape regex characters (ex.: \\\\s)",
+					"type": "array",
+					"default": [
+						{
+							"step": 1,
+							"description": "Delete italic and underline",
+							"search": "(<\\/?em>|<\\/?i>|<\\/?u>)",
+							"replace": "",
+							"multipass": false
+						},
+						{
+							"step": 2,
+							"description": "Delete all tag <a name>",
+							"search": "<a name=[\"'].*?[\"']>(.*?)<\\/a>",
+							"replace": "$1",
+							"multipass": true
+						},
+						{
+							"step": 3,
+							"description": "Delete all tag <ins ...></ins>",
+							"search": "<ins.*?>(.*?)<\\/ins>",
+							"replace": "$1",
+							"multipass": true
+						},
+						{
+							"step": 4,
+							"description": "Delete P tags",
+							"search": "<p>(&#160;|&nbsp;|\\s*)<\\/p>",
+							"replace": "",
+							"multipass": false
+						},
+						{
+							"step": 5,
+							"description": "Convert no-blank-space by space",
+							"search": "(&#160;|&nbsp;)",
+							"replace": " ",
+							"multipass": false
+						}
+					]
+				},
+				"html-code-cleaner.SearchReplaceEnd": {
+					"description": "Array of Search and replace Regexs to execute with the End script. Important to double escape regex characters (ex.: \\\\s)",
+					"type": "array",
+					"default": [
+						{
+							"step": 1,
+							"description": "Add no-blank-space after french double-quotes",
+							"search": "«(\\s|&#160;|&nbsp;)*|«",
+							"replace": "«&#160;",
+							"multipass": false
+						},
+						{
+							"step": 2,
+							"description": "Add no-blank-space before french double-quotes",
+							"search": "(\\s|&#160;|&nbsp;)*»|»",
+							"replace": "&#160;»",
+							"multipass": false
+						},
+						{
+							"step": 3,
+							"description": "Add a no-blank-space before :",
+							"search": "(\\s|&#160;|&nbsp;)+\\:(\\s|&#160;|&nbsp;)*",
+							"replace": "&#160;:$2",
+							"multipass": false
+						},
+						{
+							"step": 4,
+							"description": "Convert special quote to standard quote",
+							"search": "[’‘‛]",
+							"replace": "'",
+							"multipass": false
+						},
+						{
+							"step": 5,
+							"description": "Convert special double-quote to standard double-quote",
+							"search": "[“”‟]",
+							"replace": "\"",
+							"multipass": false
+						},
+						{
+							"step": 6,
+							"description": "Convert the dash between 2 spaces by a ndash",
+							"search": "(\\s|&#160;|&nbsp;)+-(\\s|&#160;|&nbsp;)+",
+							"replace": " – ",
+							"multipass": false
+						}
+					]
+				}
+			}
+		}
+	},
+	"scripts": {
+		"lint": "eslint .",
+		"pretest": "npm run lint",
+		"test": "node ./test/runTest.js",
+		"vscode:prepublish": "webpack --mode production",
+		"webpack": "webpack --mode development",
+		"webpack-dev": "webpack --mode development --watch",
+		"test-compile": "tsc -p ./"
+	},
+	"devDependencies": {
+		"@types/vscode": "^1.30.0",
+		"@types/glob": "^7.1.3",
+		"@types/mocha": "^8.0.0",
+		"@types/node": "^12.11.7",
+		"eslint": "^7.9.0",
+		"glob": "^7.1.6",
+		"mocha": "^8.1.3",
+		"vscode-test": "^1.4.0",
+		"ts-loader": "^8.0.12",
+		"typescript": "^4.1.2",
+		"webpack": "^5.10.1",
+		"webpack-cli": "^4.2.0"
+	}
+}

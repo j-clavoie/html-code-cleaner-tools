@@ -1,0 +1,420 @@
+{
+  "accentedCharacters": [
+    {
+      "character": "À",
+      "name": "&Agrave;",
+      "number": "&#192;",
+      "description": "Capital a with grave accent"
+    },
+    {
+      "character": "Á",
+      "name": "&Aacute;",
+      "number": "&#193;",
+      "description": "Capital a with acute accent"
+    },
+    {
+      "character": "Â",
+      "name": "&Acirc;",
+      "number": "&#194;",
+      "description": "Capital a with circumflex accent"
+    },
+    {
+      "character": "Ã",
+      "name": "&Atilde;",
+      "number": "&#195;",
+      "description": "Capital a with tilde"
+    },
+    {
+      "character": "Ä",
+      "name": "&Auml;",
+      "number": "&#196;",
+      "description": "Capital a with umlaut"
+    },
+    {
+      "character": "Å",
+      "name": "&Aring;",
+      "number": "&#197;",
+      "description": "Capital a with ring"
+    },
+    {
+      "character": "Æ",
+      "name": "&AElig;",
+      "number": "&#198;",
+      "description": "Capital ae"
+    },
+    {
+      "character": "Ç",
+      "name": "&Ccedil;",
+      "number": "&#199;",
+      "description": "Capital c with cedilla"
+    },
+    {
+      "character": "È",
+      "name": "&Egrave;",
+      "number": "&#200;",
+      "description": "Capital e with grave accent"
+    },
+    {
+      "character": "É",
+      "name": "&Eacute;",
+      "number": "&#201;",
+      "description": "Capital e with acute accent"
+    },
+    {
+      "character": "Ê",
+      "name": "&Ecirc;",
+      "number": "&#202;",
+      "description": "Capital e with circumflex accent"
+    },
+    {
+      "character": "Ë",
+      "name": "&Euml;",
+      "number": "&#203;",
+      "description": "Capital e with umlaut"
+    },
+    {
+      "character": "Ì",
+      "name": "&Igrave;",
+      "number": "&#204;",
+      "description": "Capital i with grave accent"
+    },
+    {
+      "character": "Í",
+      "name": "&Iacute;",
+      "number": "&#205;",
+      "description": "Capital i with accute accent"
+    },
+    {
+      "character": "Î",
+      "name": "&Icirc;",
+      "number": "&#206;",
+      "description": "Capital i with circumflex accent"
+    },
+    {
+      "character": "Ï",
+      "name": "&Iuml;",
+      "number": "&#207;",
+      "description": "Capital i with umlaut"
+    },
+    {
+      "character": "Ñ",
+      "name": "&Ntilde;",
+      "number": "&#209;",
+      "description": "Capital n with tilde"
+    },
+    {
+      "character": "Ò",
+      "name": "&Ograve;",
+      "number": "&#210;",
+      "description": "Capital o with grave accent"
+    },
+    {
+      "character": "Ó",
+      "name": "&Oacute;",
+      "number": "&#211;",
+      "description": "Capital o with accute accent"
+    },
+    {
+      "character": "Ô",
+      "name": "&Ocirc;",
+      "number": "&#212;",
+      "description": "Capital o with circumflex accent"
+    },
+    {
+      "character": "Õ",
+      "name": "&Otilde;",
+      "number": "&#213;",
+      "description": "Capital o with tilde"
+    },
+    {
+      "character": "Ö",
+      "name": "&Ouml;",
+      "number": "&#214;",
+      "description": "Capital o with umlaut"
+    },
+    {
+      "character": "Ù",
+      "name": "&Ugrave;",
+      "number": "&#217;",
+      "description": "Capital u with grave accent"
+    },
+    {
+      "character": "Ú",
+      "name": "&Uacute;",
+      "number": "&#218;",
+      "description": "Capital u with acute accent"
+    },
+    {
+      "character": "Û",
+      "name": "&Ucirc;",
+      "number": "&#219;",
+      "description": "Capital u with circumflex accent"
+    },
+    {
+      "character": "Ü",
+      "name": "&Uuml;",
+      "number": "&#220;",
+      "description": "Capital u with umlaut"
+    },
+    {
+      "character": "Ý",
+      "name": "&Yacute;",
+      "number": "&#221;",
+      "description": "Capital y with acute accent"
+    },
+    {
+      "character": "à",
+      "name": "&agrave;",
+      "number": "&#224;",
+      "description": "Lowercase a with grave accent"
+    },
+    {
+      "character": "á",
+      "name": "&aacute;",
+      "number": "&#225;",
+      "description": "Lowercase a with acute accent"
+    },
+    {
+      "character": "â",
+      "name": "&acirc;",
+      "number": "&#226;",
+      "description": "Lowercase a with circumflex accent"
+    },
+    {
+      "character": "ã",
+      "name": "&atilde;",
+      "number": "&#227;",
+      "description": "Lowercase a with tilde"
+    },
+    {
+      "character": "ä",
+      "name": "&auml;",
+      "number": "&#228;",
+      "description": "Lowercase a with umlaut"
+    },
+    {
+      "character": "å",
+      "name": "&aring;",
+      "number": "&#229;",
+      "description": "Lowercase a with ring"
+    },
+    {
+      "character": "æ",
+      "name": "&aelig;",
+      "number": "&#230;",
+      "description": "Lowercase ae"
+    },
+    {
+      "character": "ç",
+      "name": "&ccedil;",
+      "number": "&#231;",
+      "description": "Lowercase c with cedilla"
+    },
+    {
+      "character": "è",
+      "name": "&egrave;",
+      "number": "&#232;",
+      "description": "Lowercase e with grave accent"
+    },
+    {
+      "character": "é",
+      "name": "&eacute;",
+      "number": "&#233;",
+      "description": "Lowercase e with acute accent"
+    },
+    {
+      "character": "ê",
+      "name": "&ecirc;",
+      "number": "&#234;",
+      "description": "Lowercase e with circumflex accent"
+    },
+    {
+      "character": "ë",
+      "name": "&euml;",
+      "number": "&#235;",
+      "description": "Lowercase e with umlaut"
+    },
+    {
+      "character": "ì",
+      "name": "&igrave;",
+      "number": "&#236;",
+      "description": "Lowercase i with grave accent"
+    },
+    {
+      "character": "í",
+      "name": "&iacute;",
+      "number": "&#237;",
+      "description": "Lowercase i with acute accent"
+    },
+    {
+      "character": "î",
+      "name": "&icirc;",
+      "number": "&#238;",
+      "description": "Lowercase i with circumflex accent"
+    },
+    {
+      "character": "ï",
+      "name": "&iuml;",
+      "number": "&#239;",
+      "description": "Lowercase i with umlaut"
+    },
+    {
+      "character": "ð",
+      "name": "&eth;",
+      "number": "&#240;",
+      "description": "Lowercase eth (Icelandic)"
+    },
+    {
+      "character": "ñ",
+      "name": "&ntilde;",
+      "number": "&#241;",
+      "description": "Lowercase n with tilde"
+    },
+    {
+      "character": "ò",
+      "name": "&ograve;",
+      "number": "&#242;",
+      "description": "Lowercase o with grave accent"
+    },
+    {
+      "character": "ó",
+      "name": "&oacute;",
+      "number": "&#243;",
+      "description": "Lowercase o with acute accent"
+    },
+    {
+      "character": "ô",
+      "name": "&ocirc;",
+      "number": "&#244;",
+      "description": "Lowercase o with circumflex accent"
+    },
+    {
+      "character": "õ",
+      "name": "&otilde;",
+      "number": "&#245;",
+      "description": "Lowercase o with tilde"
+    },
+    {
+      "character": "ö",
+      "name": "&ouml;",
+      "number": "&#246;",
+      "description": "Lowercase o with umlaut"
+    },
+    {
+      "character": "ù",
+      "name": "&ugrave;",
+      "number": "&#249;",
+      "description": "Lowercase u with grave accent"
+    },
+    {
+      "character": "ú",
+      "name": "&uacute;",
+      "number": "&#250;",
+      "description": "Lowercase u with acute accent"
+    },
+    {
+      "character": "û",
+      "name": "&ucirc;",
+      "number": "&#251;",
+      "description": "Lowercase u with circumflex accent"
+    },
+    {
+      "character": "ü",
+      "name": "&uuml;",
+      "number": "&#252;",
+      "description": "Lowercase u with umlaut"
+    },
+    {
+      "character": "ý",
+      "name": "&yacute;",
+      "number": "&#253;",
+      "description": "Lowercase y with acute accent"
+    },
+    {
+      "character": "ÿ",
+      "name": "&yuml;",
+      "number": "&#255;",
+      "description": "Lowercase y with umlaut"
+    },
+    {
+      "character": "–",
+      "name": "&ndash;",
+      "number": "&#8211;",
+      "description": "En dash"
+    },
+    {
+      "character": "—",
+      "name": "&mdash;",
+      "number": "&#8212;",
+      "description": "Em dash"
+    },
+    {
+      "character": "’",
+      "name": "&rsquo;",
+      "number": "&#8217;",
+      "description": "Right single quotation mark"
+    }
+  ],
+  "spcialCharacters": [
+    {
+      "character": "‘",
+      "name": "&lsquo;",
+      "number": "&#8216;",
+      "description": "Left single quotation mark"
+    },
+    {
+      "character": "“",
+      "name": "&ldquo;",
+      "number": "&#8220;",
+      "description": "Left double quotation mark"
+    },
+    {
+      "character": "”",
+      "name": "&rdquo;",
+      "number": "&#8221;",
+      "description": "Right double quotation mark"
+    },
+    {
+      "character": "…",
+      "name": "&hellip;",
+      "number": "&#8230;",
+      "description": "Horizontal ellipsis"
+    },
+    {
+      "character": "<",
+      "name": "&lt;",
+      "number": "&#60;",
+      "description": "Less-than"
+    },
+    {
+      "character": ">",
+      "name": "&gt;",
+      "number": "&#62;",
+      "description": "Greater than"
+    },
+    {
+      "character": "&",
+      "name": "&amp;",
+      "number": "&#38;",
+      "description": "Ampersand"
+    },
+    {
+      "character": "–",
+      "name": "&ndash;",
+      "number": "&#8211;",
+      "description": "En dash"
+    },
+    {
+      "character": "—",
+      "name": "&mdash;",
+      "number": "&#8212;",
+      "description": "Em dash"
+    },
+    {
+      "character": "’",
+      "name": "&rsquo;",
+      "number": "&#8217;",
+      "description": "Right single quotation mark"
+    }
+  ]
+}
