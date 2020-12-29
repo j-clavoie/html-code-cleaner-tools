@@ -1,40 +1,49 @@
 {
-	"name": "html-code-cleaner",
+	"name": "html-code-cleaner-tools",
 	"displayName": "HTML Code Cleaner",
 	"description": "Extension to remove/replace/remove part of unwanted/useless code or not compliant with our publishings rules or to be compliant with accessibility.",
-	"version": "0.0.6",
+	"version": "0.0.7",
 	"publisher": "j-clavoie",
 	"engines": {
 		"vscode": "^1.30.0"
 	},
+	"author": {
+		"name": "J-C Lavoie"
+	},
 	"categories": [
+		"Linters",
 		"Other"
 	],
+	"keywords": [
+		"html",
+		"Cleaner",
+		"code helper"
+	],
 	"activationEvents": [
-		"onCommand:ddpd.code-cleaner_begin",
-		"onCommand:ddpd.code-cleaner_end",
-		"onCommand:ddpd.convert-special-characters"
+		"onCommand:html-code-cleaner-tools.begin",
+		"onCommand:html-code-cleaner-tools.end",
+		"onCommand:html-code-cleaner-tools.convert-special-characters"
 	],
 	"main": "./src/extension.js",
 	"contributes": {
 		"commands": [
 			{
-				"command": "ddpd.code-cleaner_begin",
-				"title": "DDPD - Code Cleaner - Begin"
+				"command": "html-code-cleaner-tools.begin",
+				"title": "HTML Code cleaner - Begin"
 			},
 			{
-				"command": "ddpd.code-cleaner_end",
-				"title": "DDPD - Code Cleaner - End"
+				"command": "html-code-cleaner-tools.end",
+				"title": "HTML Code cleaner - End"
 			},
 			{
-				"command": "ddpd.convert-special-characters",
-				"title": "DDPD - Convert special characters"
+				"command": "html-code-cleaner-tools.convert-special-characters",
+				"title": "HTML - Convert special characters"
 			}
 		],
 		"configuration": {
-			"title": "HTML Code Cleaner",
+			"title": "HTML Code Cleaner Tools",
 			"properties": {
-				"html-code-cleaner.Language": {
+				"html-code-cleaner-tools.Language": {
 					"description": "Select the language of the text in the code",
 					"type": "array",
 					"default": [
@@ -48,22 +57,22 @@
 						}
 					]
 				},
-				"html-code-cleaner.domainsToDelete": {
+				"html-code-cleaner-tools.domainsToDelete": {
 					"description": "List of domains (array of string) to remove from links. Example: 'domain.com', 'www.domain.com', 'apps.domain.com'.",
 					"type": "array",
 					"default": []
 				},
-				"html-code-cleaner.includeSubDomainsInDeletion": {
+				"html-code-cleaner-tools.includeSubDomainsInDeletion": {
 					"description": "Allows deletion of subdomains. Ex.: abc.def.domain.com (abc.dev) are sub-domains and will be deleted. If set to FALSE, only domains defined in \"Domains To Delete\" will be deleted specificly.",
 					"type": "boolean",
 					"default": true
 				},
-				"html-code-cleaner.convertFrenchNumbers": {
+				"html-code-cleaner-tools.convertFrenchNumbers": {
 					"description": "Replace space by no-blank-space in French number. ex: 9 999 $ = 9&#160;999&#160;$",
 					"type": "boolean",
 					"default": true
 				},
-				"html-code-cleaner.SearchReplaceBegin": {
+				"html-code-cleaner-tools.SearchReplaceBegin": {
 					"description": "Array of Search and replace Regexs to execute with the Begin script. Important to double escape regex characters (ex.: \\\\s)",
 					"type": "array",
 					"default": [
@@ -104,7 +113,7 @@
 						}
 					]
 				},
-				"html-code-cleaner.SearchReplaceEnd": {
+				"html-code-cleaner-tools.SearchReplaceEnd": {
 					"description": "Array of Search and replace Regexs to execute with the End script. Important to double escape regex characters (ex.: \\\\s)",
 					"type": "array",
 					"default": [
@@ -155,6 +164,12 @@
 			}
 		}
 	},
+	"license": "See file LICENSE",
+	"repository": {
+		"type": "git",
+		"url": "https://github.com/j-clavoie/html-code-cleaner-tools.git"
+	},
+	"homepage": "https://github.com/j-clavoie/html-code-cleaner-tools/blob/main/README.md",
 	"scripts": {
 		"lint": "eslint .",
 		"pretest": "npm run lint",

@@ -1,5 +1,6 @@
 const vscode = require('vscode');
 const genFunc = require('./genericFunctions');
+
 // Read the JSON file that contains characters definitions (it's imported as JSON object, not string)
 const listChars = require('../lib/special_characters.json');
 
@@ -10,15 +11,15 @@ const listChars = require('../lib/special_characters.json');
  */
 function activate(context) {
 
-	let functionBegin = vscode.commands.registerCommand('ddpd.code-cleaner_begin', async function () {
+	let functionBegin = vscode.commands.registerCommand('html-code-cleaner-tools.begin', async function () {
 		await cleanCodeBegin();
 	});
 
-	let functionEnd = vscode.commands.registerCommand('ddpd.code-cleaner_end', function () {
+	let functionEnd = vscode.commands.registerCommand('html-code-cleaner-tools.end', function () {
 		cleanCodeEnd();
 	});
 
-	let convertSpecialCharacters = vscode.commands.registerCommand('ddpd.convert-special-characters', function () {
+	let convertSpecialCharacters = vscode.commands.registerCommand('html-code-cleaner-tools.convert-special-characters', function () {
 		convertSepecialCharacters();
 	});
 
@@ -29,39 +30,36 @@ function activate(context) {
 
 // this method is called when extension is deactivated
 function deactivate() { }
-
 exports.activate = activate;
-
 module.exports = {
 	activate,
 	deactivate
 }
 
 
-/* *#*#*#*#*#*#*#*#*#*#*#*#*#*#*#*#*#*#*#*#*#*#*#*#*#*#*#*#*#*#*#* */
-/* *#*#*#*#*#*#*#*#*#*#*#*#*#*#*#*#*#*#*#*#*#*#*#*#*#*#*#*#*#*#*#* */
-/* *#*#*#*#*#*#*#*#*#*#*#*#*#*#*#*#*#*#*#*#*#*#*#*#*#*#*#*#*#*#*#* */
+/* *#*#*#*#*#*#*#*#*#*#*#*#*#*#*#*#*#*#*#*#*#*#*#*#*#*#*#*#*#*#*#*#*#*#*#*#*#*#*#*#* */
+/* *#*#*#*#*#*#*#*#*#*#*#*#*#*#*#*#*#*#*#*#*#*#*#*#*#*#*#*#*#*#*#*#*#*#*#*#*#*#*#*#* */
+/* *#*#*#*#*#*#*#*#*#*#*#*#*#*#*#*#*#*#*#*#*#*#*#*#*#*#*#*#*#*#*#*#*#*#*#*#*#*#*#*#* */
 
 
 /**
- * This method clean the code of unwanted code/characters/etc
- * Replace one or many spaces/no blank spance to only one space
- * Remove all unwanted format coding (italic, superscript, underline)
+ * This method cleans the code of unwanted/useless code/characters/etc
+ * Execute regex replacement stored in the Extenstion's properties
  */
 async function cleanCodeBegin() {
-	// Validate if the code is HTML
+	// Validate if the code is HTML, if not stop process
 	if (!genFunc.isHTMLcode()) {
 		return;
 	}
-
-	// Get the language of the text in the code
-	const textLang = await genFunc.getLang("html-code-cleaner");
 
 	// Select the current editor, if no one available then show an error message and exit
 	const myEditor = genFunc.getActiveEditor();
 	if (!myEditor) {
 		return false;
 	}
+
+	// Get the language of the text in the code
+	const textLang = await genFunc.getLang("html-code-cleaner-tools");
 
 	// Define the whole document as range. Range is required to update the Editor's content
 	const SelectedTextRange = genFunc.getRangeSelected(true);
@@ -88,7 +86,8 @@ async function cleanCodeBegin() {
 
 
 /**
- * This method replace not standard characters, add no blank space before and convert some characters
+ * This method cleans/set the code before to publish it.
+ * Execute regex replacement stored in the Extenstion's properties
  */
 function cleanCodeEnd() {
 	// Validate if the code is HTML
@@ -180,9 +179,10 @@ function convertSepecialCharacters() {
  */
 function deleteDomains(docText) {
 	// Get list of domains to remove in links (stored in Extension's properties)
-	const configDomainsToRemove = vscode.workspace.getConfiguration("html-code-cleaner").domainsToDelete;
-	const deleteSubDomains = vscode.workspace.getConfiguration("html-code-cleaner").includeSubDomainsInDeletion;
+	const configDomainsToRemove = vscode.workspace.getConfiguration("html-code-cleaner-tools").domainsToDelete;
+	const deleteSubDomains = vscode.workspace.getConfiguration("html-code-cleaner-tools").includeSubDomainsInDeletion;
 
+	// If no domain to remove then only return the original docText
 	if (configDomainsToRemove.length < 1 || configDomainsToRemove == null) {
 		return docText;
 	}
@@ -248,13 +248,17 @@ function deleteUselessSpan(docText, textLang) {
  * Return HTML code with domains removed from "a href" and "img src"
  */
 function setFrenchNumber(docText) {
-	const convertFrenchNumber = vscode.workspace.getConfiguration("html-code-cleaner").convertFrenchNumbers;
+	// Check if French number conversion must be applied
+	const convertFrenchNumber = vscode.workspace.getConfiguration("html-code-cleaner-tools").convertFrenchNumbers;
 	if (convertFrenchNumber) {
+		// Regex pattern
 		let patternText = "(\\d) (\\d{3})";
 		const spanPattern = new RegExp(patternText, "gmi");
+		// Execute the regex until the pattern is present in the docText
 		while (docText.match(spanPattern) != undefined) {
 			docText = docText.replace(spanPattern, '$1&#160;$2');
 		}
+		// Adding no-blank-space before $ and % symbols
 		docText = docText.replace(/(\d) ([$%])/gmi, '$1&#160;$2');
 	}
 	// Return the code cleaned
@@ -263,24 +267,32 @@ function setFrenchNumber(docText) {
 
 
 /**
- * Method to Execute Regex stores in the Extension's properties
+ * Method that executes Regex stored in the Extension's properties
  * @param {string} docText HTML code source to clean
  * @param {string} property the Extension Property name to use for the Search and replace
  * Return the HTML code updated
  */
 function searchReplaceFromProperties(docText, property) {
-	const searchReplace = vscode.workspace.getConfiguration('html-code-cleaner')[property];
-	if (searchReplace != null && searchReplace.length > 0 ) {
+	// Retrieve the Search and Replace information to execute (store in Extension's properties)
+	const searchReplace = vscode.workspace.getConfiguration('html-code-cleaner-tools')[property];
+	// If Search and Replace to execute then process
+	if (searchReplace != null && searchReplace.length > 0) {
+		// Process each Search/Replace stored
 		searchReplace.forEach(function (elem) {
+			// Create regex pattern
 			let srPattern = new RegExp(elem.search, "gmi");
+			// If the regex must be executed many times or only one
 			if (elem.multipass) {
+				// Pass through the docText until Pattern is present
 				while (docText.match(srPattern) != undefined) {
 					docText = docText.replace(srPattern, elem.replace);
 				}
 			} else {
+				// Execute only once the regex
 				docText = docText.replace(srPattern, elem.replace);
 			}
 		});
 	}
+	// Return the processed text
 	return docText;
 }
