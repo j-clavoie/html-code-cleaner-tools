@@ -1,7 +1,7 @@
 # Change Log
 
 
-## [0.0.7] - 2020-12-XX
+## [0.0.7] - 2020-12-29
 Working version.
 + Readme file created.
 + Functions available:
