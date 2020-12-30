@@ -60,6 +60,10 @@ async function cleanCodeBegin() {
 
 	// Get the language of the text in the code
 	const textLang = await genFunc.getLang("html-code-cleaner-tools");
+	if (textLang == null) {
+		vscode.window.showErrorMessage("The extension is experiencing an issue related to Language of text. Check Extension's properties to fix potential conflicts.");
+		return;
+	}
 
 	// Define the whole document as range. Range is required to update the Editor's content
 	const SelectedTextRange = genFunc.getRangeSelected(true);
@@ -74,7 +78,7 @@ async function cleanCodeBegin() {
 	docText = deleteDomains(docText);
 
 	// Apply all RegEx stored in the Extension's properties for the Begin script
-	searchReplaceFromProperties(docText, "SearchReplaceBegin");
+	docText = searchReplaceFromProperties(docText, "SearchReplaceBegin");
 
 	// Replace the content of the Active Editor with the new one cleanned
 	genFunc.updateEditor(docText, SelectedTextRange);
@@ -115,7 +119,7 @@ function cleanCodeEnd() {
 	docText = deleteDomains(docText);
 
 	// Apply all RegEx stored in the Extension's properties for the Begin script
-	searchReplaceFromProperties(docText, "SearchReplaceEnd");
+	docText = searchReplaceFromProperties(docText, "SearchReplaceEnd");
 
 	// Convert French Number to replace space by no-blank-space
 	docText = setFrenchNumber(docText);
@@ -134,7 +138,7 @@ function cleanCodeEnd() {
  */
 function convertSepecialCharacters() {
 	// Validate if the code is HTML
-	if (!isHTMLcode()) {
+	if (!genFunc.isHTMLcode()) {
 		return;
 	}
 
@@ -222,17 +226,23 @@ function deleteDomains(docText) {
 
 
 /**
- * Method that delete all empty SPAN tag, or set with the same language than the textLang Parameter.
+ * Method that delete all empty SPAN tag, 
+ * delete SPAN with the same language than the one selected by user with the popop,
+ * or remove the lang="XX" from the SPAN if ID or class is set in the SPAN.
  * ie.: If it's a English text (content) then all "SPAN LANG='EN'" are useless and must be deleted
  * @param {string} docText HTML code source to clean
  *
  * Return HTML code with domains removed from "a href" and "img src"
  */
 function deleteUselessSpan(docText, textLang) {
-	let patternText = "<span lang=[\"']" + textLang + "[\"']>(.*?)<\\/span>|<span>(.*?)<\\/span>";
+	// This pattern remove only empty SPAN and SPAN LANG="XX"... 
+	//let patternText = "<span(.*?)lang=[\"']" + textLang + "[\"'](.*?)>(.*?)<\\/span>|<span>(.*?)<\\/span>";
+	// This pattern remove Empty SPAN and SPAN lang="XX" or the lang="xx" if SPAN has ID or CSS class
+	let patternText = "(<span.*?)\\s*lang=[\"']" + textLang + "[\"'](.*?>.*?<\\/span>)|<span(.*?)lang=[\"']" + textLang + "[\"'](.*?)>(.*?)<\\/span>|<span>(.*?)<\\/span>";
 	const spanPattern = new RegExp(patternText, "gmi");
+	// Execute the replacement until the regex pattern is present in the code
 	while (docText.match(spanPattern) != undefined) {
-		docText = docText.replace(spanPattern, '$1$2');
+		docText = docText.replace(spanPattern, '$1$2$3$6');
 	}
 
 	// Return the code cleaned
@@ -252,14 +262,14 @@ function setFrenchNumber(docText) {
 	const convertFrenchNumber = vscode.workspace.getConfiguration("html-code-cleaner-tools").convertFrenchNumbers;
 	if (convertFrenchNumber) {
 		// Regex pattern
-		let patternText = "(\\d) (\\d{3})";
+		let patternText = "(\\d) *(\\d{3})";
 		const spanPattern = new RegExp(patternText, "gmi");
 		// Execute the regex until the pattern is present in the docText
 		while (docText.match(spanPattern) != undefined) {
 			docText = docText.replace(spanPattern, '$1&#160;$2');
 		}
 		// Adding no-blank-space before $ and % symbols
-		docText = docText.replace(/(\d) ([$%])/gmi, '$1&#160;$2');
+		docText = docText.replace(/(\d) *([$%])/gmi, '$1&#160;$2');
 	}
 	// Return the code cleaned
 	return docText;

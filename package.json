@@ -1,7 +1,7 @@
 {
 	"name": "html-code-cleaner-tools",
 	"displayName": "HTML Code Cleaner",
-	"description": "Extension to remove/replace/remove part of unwanted/useless code or not compliant with our publishings rules or to be compliant with accessibility.",
+	"description": "Extension to remove/replace part of unwanted/useless code.",
 	"version": "0.0.7",
 	"publisher": "j-clavoie",
 	"engines": {
@@ -16,7 +16,7 @@
 	],
 	"keywords": [
 		"html",
-		"Cleaner",
+		"code cleaner",
 		"code helper"
 	],
 	"activationEvents": [
@@ -43,7 +43,7 @@
 		"configuration": {
 			"title": "HTML Code Cleaner Tools",
 			"properties": {
-				"html-code-cleaner-tools.Language": {
+				"html-code-cleaner-tools.textLanguages": {
 					"description": "Select the language of the text in the code",
 					"type": "array",
 					"default": [
