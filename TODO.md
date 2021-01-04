@@ -25,4 +25,8 @@ GENERAL:
       - Supprimer les espaces dans les URL
 
 
-  Faire une fonction avec la suppression d'infozone car on l'utilise au début et à la fin
+TEXTE FORMAT:
+  Convertir:
+    - <b> par <strong>
+    - <i> par <em>
+    - 

@@ -195,10 +195,11 @@ function deleteDomains(docText) {
 	let domainsToRemoveString = '';
 	// Pass through all domains in properties
 	configDomainsToRemove.forEach(function (elem) {
+		elem = elem.replace(".", "\\.");
 		// Check if sub-domains must be deleted
 		if (deleteSubDomains) {
-			// Add part of regex to includes subdomains
-			domainsToRemoveString = domainsToRemoveString + ".*?" + elem + "|";
+			// Add regex part to includes subdomains if present
+			domainsToRemoveString = domainsToRemoveString + "(.*?\\.)*?" + elem + "|";
 		} else {
 			// Use only domain defined in properties
 			domainsToRemoveString = domainsToRemoveString + elem + "|";
@@ -262,7 +263,7 @@ function setFrenchNumber(docText) {
 	const convertFrenchNumber = vscode.workspace.getConfiguration("html-code-cleaner-tools").convertFrenchNumbers;
 	if (convertFrenchNumber) {
 		// Regex pattern
-		let patternText = "(\\d) *(\\d{3})";
+		let patternText = "(\\d) +(\\d{3})";
 		const spanPattern = new RegExp(patternText, "gmi");
 		// Execute the regex until the pattern is present in the docText
 		while (docText.match(spanPattern) != undefined) {
