@@ -1,5 +1,6 @@
 const vscode = require('vscode');
 const genFunc = require('./genericFunctions');
+const JSDOM = require('jsdom').JSDOM;
 
 // Read the JSON file that contains characters definitions (it's imported as JSON object, not string)
 const listChars = require('../lib/special_characters.json');
