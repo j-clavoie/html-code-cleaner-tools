@@ -1,3 +1,7 @@
+README:
+  - Mettre à jour le readme pour l'option Clean URL
+  
+
 GENERAL:
   Supprimer les espaces vides - en faire une fonction pour l'utiliser au début et à la fin
      - Supprimer les espaces vides avant:

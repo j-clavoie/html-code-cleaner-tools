@@ -24,7 +24,7 @@
 		"onCommand:html-code-cleaner-tools.end",
 		"onCommand:html-code-cleaner-tools.convert-special-characters"
 	],
-	"main": "./dist/extension.js",
+	"main": "./src/extension.js",
 	"contributes": {
 		"commands": [
 			{
