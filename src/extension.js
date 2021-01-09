@@ -64,6 +64,8 @@ async function cleanCodeBegin() {
 	if (textLang == null) {
 		vscode.window.showErrorMessage("The extension is experiencing an issue related to Language of text. Check Extension's properties to fix potential conflicts.");
 		return;
+	} else if (textLang == -1) {
+		return;
 	}
 
 	// Define the whole document as range. Range is required to update the Editor's content
@@ -77,6 +79,9 @@ async function cleanCodeBegin() {
 
 	// Delete domain in "A href" and "IMG src"
 	docText = deleteDomains(docText);
+
+	// Clean URL
+	docText = cleanURL(docText);
 
 	// Apply all RegEx stored in the Extension's properties for the Begin script
 	docText = searchReplaceFromProperties(docText, "SearchReplaceBegin");
@@ -115,6 +120,10 @@ function cleanCodeEnd() {
 	// ****** MAIN PROCESS - Apply replacement ****** 
 	// TODO: 	Add a DOM to keep all A tag with FILE: protocol and replace \ by / and space by %20
 	// 				Must be executed before all other replacement - 
+
+	// Clean URL
+	docText = cleanURL(docText);
+
 
 	// Delete domain in "A href" and "IMG src"
 	docText = deleteDomains(docText);
@@ -305,6 +314,74 @@ function searchReplaceFromProperties(docText, property) {
 			}
 		});
 	}
+	// Return the processed text
+	return docText;
+}
+
+/**
+ * Method that executes Regex stored in the Extension's properties
+ * @param {string} docText HTML code source to clean
+ * Return the HTML code updated
+ */
+function cleanURL(docText) {
+	// If the Extension's property "cleanURL" is set to TRUE
+	if (!vscode.workspace.getConfiguration("html-code-cleaner-tools").cleanURL) {
+		// Return the docText without changes
+		return docText;
+	}
+
+	// Create a DOM from the selected text
+	let myDOM = new JSDOM(docText);
+
+	// Retrieve all A tags in the DOM
+	let ATags = myDOM.window.document.querySelectorAll('a');
+	// Process each A tag
+	ATags.forEach(function (elem) {
+		// Trim spaces in both start and end of URL
+		elem.href = elem.href.trim();
+		
+		// EMAIL address
+		if (elem.href.match(/^mailto\:/gi) != null){
+			// Retrive the first part of URL (from "mailto" to "?" all stuff after the symbol ? should not be touched)
+			let tmphref = elem.href.match(/^mailto:.+\?*/g);
+			// convert to lowercase
+			tmphref = tmphref[0].toLowerCase();
+			// remove space
+			tmphref = tmphref.replace(/\s*/g, '');
+			// reset the href of current element
+			elem.href = tmphref;
+		}
+		
+		// Replace space by %20
+		elem.href = elem.href.replace(/\s/g, '%20');
+
+		// replace \ by / in URL
+		elem.href = elem.href.replace(/\\/g, '/');
+
+		// replace group of / (3 or more) by only 2 (ex.: file://// => file://)
+		elem.href = elem.href.replace(/(\/{3,})/, '//');
+
+		// trim space in link's name (inside <a></a>)
+		elem.innerHTML = elem.innerHTML.trim();
+	});
+
+
+	// Retrieve all IMG tags in the DOM
+	let ImgTags = myDOM.window.document.querySelectorAll('img');
+	// Process each A tag
+	ImgTags.forEach(function (elem) {
+		// Trim spaces in both start and end of URL
+		elem.src = elem.src.trim();
+		elem.src = elem.src.replace(/\s/g, '%20');
+	});
+
+	// Convert the DOM to text (HTML code)
+	docText =  myDOM.window.document.getElementsByTagName('body')[0].innerHTML;
+
+	// add spaces both ends of A tags (extra spaces will be removed with the format document command)
+	docText = docText.replace(/(<a(.*?)href)/gmi, ' $1');
+	docText = docText.replace(/(<\/a>)/gmi, '$1 ');
+	
 	// Return the processed text
 	return docText;
 }

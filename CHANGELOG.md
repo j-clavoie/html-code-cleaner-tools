@@ -1,5 +1,21 @@
 # Change Log
 
+## [0.0.9] - 2021-01-08
++ Add a sub function "clean URL". It's applied in both "Begin" and "End" main functions.
++ Add Extension's property to enable/disable the "clean URL" step
++ Clean URL
+  + A tags and IMG tags
+    + Trim spaces in both ends of URL
+    + Replace spaces by %20 inside the URL
+    + Replace \ by / in URL
+    + Replace extras dash (/) (3 and more) after protocol (ex.: file://// -> file://)
+  + A tags only
+    + Trim spaces in the text of A tags (link's name: inside the A tag)
+    + Email address
+      + Remove spaces in the address before the symbol "?"
+      + Convert email address in lowercase (before the symbol "?")
++ Fix little issue when escaping popup message
+      
 
 ## [0.0.8] - 2021-01-04
 + Fix error with the subdomain deletion:
