@@ -1,5 +1,15 @@
 # Change Log
 
+## [0.0.10] - 2021-01-11
++ Fix issue with the French number function. no-blank-space before symbols $ and % MUST have a space instead of may have a space.
++ Remove deletion of all ```<i>``` tags in the "Begin" function (remove from the Extension's properties). This tag is used for "awesome font".<br>
+(MUST UPDATE Extension properties, to remove ```<\\/?i>```, in step 1 of SearchReplaceBegin property.)
++ Fix Regex to delete empyt P tag (in the Begin function, in Extension's properties)
++ Fix an issue with link that points to anchor in the page (```<a hef="#id">link's name</a>```). <br>
+  I don't know why but "about:blank" is added before the hashtag in the href attribute.<br>
+  So, I added a regex to remove all "about:blank" string in the whole document.
+
+
 ## [0.0.9] - 2021-01-08
 + Add a sub function "clean URL". It's applied in both "Begin" and "End" main functions.
 + Add Extension's property to enable/disable the "clean URL" step

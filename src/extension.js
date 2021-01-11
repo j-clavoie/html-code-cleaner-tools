@@ -280,7 +280,7 @@ function setFrenchNumber(docText) {
 			docText = docText.replace(spanPattern, '$1&#160;$2');
 		}
 		// Adding no-blank-space before $ and % symbols
-		docText = docText.replace(/(\d) *([$%])/gmi, '$1&#160;$2');
+		docText = docText.replace(/(\d) +([$%])/gmi, '$1&#160;$2');
 	}
 	// Return the code cleaned
 	return docText;
@@ -377,6 +377,10 @@ function cleanURL(docText) {
 
 	// Convert the DOM to text (HTML code)
 	docText =  myDOM.window.document.getElementsByTagName('body')[0].innerHTML;
+
+	// I don't know why but JSDOM add "about:blank" in anchor link
+	// Remove it
+	docText = docText.replace("about:blank", "");
 
 	// add spaces both ends of A tags (extra spaces will be removed with the format document command)
 	docText = docText.replace(/(<a(.*?)href)/gmi, ' $1');

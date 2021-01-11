@@ -140,6 +140,13 @@ Example: the number: ```12 654 $``` will be converted to ```12&#160;654&#160;$``
 <br />
 <br />
 
+## Known issues
+
+### HTML Code Cleaner - Begin & End
+When using these both functions, all comment at the beginning of the code will be removed.<br>
+All other comments will keep but if the code starts with comments then these comments will be removed.alias
+
+
 ## Reference
 List of Special characters: https://www.freeformatter.com/html-entities.html
 

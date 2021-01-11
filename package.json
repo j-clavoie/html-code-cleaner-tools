@@ -2,7 +2,7 @@
 	"name": "html-code-cleaner-tools",
 	"displayName": "HTML Code Cleaner",
 	"description": "Extension to remove/replace part of unwanted/useless code.",
-	"version": "0.0.9",
+	"version": "0.0.10",
 	"publisher": "j-clavoie",
 	"engines": {
 		"vscode": "^1.52.0"
@@ -24,7 +24,7 @@
 		"onCommand:html-code-cleaner-tools.end",
 		"onCommand:html-code-cleaner-tools.convert-special-characters"
 	],
-	"main": "./src/extension.js",
+	"main": "./dist/extension.js",
 	"contributes": {
 		"commands": [
 			{
@@ -82,7 +82,7 @@
 						{
 							"step": 1,
 							"description": "Delete italic and underline",
-							"search": "(<\\/?em>|<\\/?i>|<\\/?u>)",
+							"search": "(<\\/?em>|<\\/?u>)",
 							"replace": "",
 							"multipass": false
 						},
@@ -103,7 +103,7 @@
 						{
 							"step": 4,
 							"description": "Delete P tags",
-							"search": "<p>(&#160;|&nbsp;|\\s*)<\\/p>",
+							"search": "<p>(&#160;|&nbsp;|\\s)*<\\/p>",
 							"replace": "",
 							"multipass": false
 						},
