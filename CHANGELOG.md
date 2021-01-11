@@ -1,5 +1,11 @@
 # Change Log
 
+## [0.0.12] - 2021-01-11
++ Fix a regex
+
+## [0.0.11] - 2021-01-11
++ Fix a regex
+
 ## [0.0.10] - 2021-01-11
 + Fix issue with the French number function. no-blank-space before symbols $ and % MUST have a space instead of may have a space.
 + Remove deletion of all ```<i>``` tags in the "Begin" function (remove from the Extension's properties). This tag is used for "awesome font".<br>

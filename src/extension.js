@@ -380,7 +380,7 @@ function cleanURL(docText) {
 
 	// I don't know why but JSDOM add "about:blank" in anchor link
 	// Remove it
-	docText = docText.replace("about:blank", "");
+	docText = docText.replace(/about\:blank/gmi, "");
 
 	// add spaces both ends of A tags (extra spaces will be removed with the format document command)
 	docText = docText.replace(/(<a(.*?)href)/gmi, ' $1');
