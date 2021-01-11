@@ -2,7 +2,7 @@
 	"name": "html-code-cleaner-tools",
 	"displayName": "HTML Code Cleaner",
 	"description": "Extension to remove/replace part of unwanted/useless code.",
-	"version": "0.0.10",
+	"version": "0.0.11",
 	"publisher": "j-clavoie",
 	"engines": {
 		"vscode": "^1.52.0"
@@ -200,5 +200,8 @@
 		"typescript": "^4.1.2",
 		"webpack": "^5.10.1",
 		"webpack-cli": "^4.2.0"
+	},
+	"dependencies": {
+		"jsdom": "^16.4.0"
 	}
 }
