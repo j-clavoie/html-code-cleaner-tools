@@ -24,8 +24,16 @@ All functions in this extension will apply to selected text (part of code). If n
 Open the code to update and execute this function to clean the text/code.
 
 The function will:
-+ Delete all useless SPAN (empty, lang other than the language of text (content)). This step is not optional
-+ Delete domains stored in Extension's properties inside A and IMG tags. This step is optional, it can be disabled in Extension's properties
++ Delete all useless SPAN (empty, lang other than the language of text (content)).<br>This step is **NOT** optional
++ Delete domains stored in Extension's properties inside A and IMG tags.<br> This step is optional, it can be disabled in Extension's properties
++ Clean URL (optional):
+  + Trim spaces at both ends of URL
+  + Trim spaces at both ends of Tag's text
+  + Convert email address to lowercase and remove spaces
+  + Convert spaces by %20
+  + Convert \ by /
++ Trim useless spaces (optional) in:
+  + P, LI and ABBR tags
 + Apply all Search and Replace stored in the Extension's properties
 
 <br />
@@ -34,14 +42,14 @@ The function will:
 Before to save and publish the HTML code, execute this function to clean the code and set special coding to uniform the code.
 
 The function will:
-+ Delete domains stored in Extension's properties inside A and IMG tags. This step is optional, it can be disabled in Extension's properties
-+ Apply all Search and Replace stored in the Extension's properties
-+ Set no-blank-space in French number. This step can be disabled in Extension's properties
++ Do the same than Begin function but:
+  + Convert French number with no-blank-space (optional)
+  + Apply all Search and Replace stored in the Extension's properties for the End property
 
 <br />
 
 ### **HTML - Convert special characters**
-This funciton is very simple, only have to execute the function and all characters will be converted.
+This function is very simple, only have to execute the function and all characters will be converted.
 
 The pairs (character = HTML code) are stored in a JSON file in the ```[extension folder]/lib/special_characters.json```
 
@@ -128,9 +136,7 @@ This setting is used with the "HTML Code Cleaner - Begin" when empty SPAN are de
 <br />
 
 ### **Convert French Numbers **
-This setting has a boolean value (true/false) to indicate if French numbers must be converted.
-
-The default value is TRUE. 
+This setting is to enable/disable the Conversion of French Numbers (default TRUE/enable).
 
 If you set to False, the conversion won't be executed.
 
@@ -138,13 +144,21 @@ The conversion consists to replace "space" by "no blank space" in number and bef
 Example: the number: ```12 654 $``` will be converted to ```12&#160;654&#160;$```
 
 <br />
+
+### **Clean URL**
+This setting is to enable/disable the Cleaning URL step in both Begin and End processes (default: TRUE/enable).
 <br />
+
+### **Trim Spaces**
+This setting is to enable/disable the Trim useless Spaces step in both Begin and End processes (default: TRUE/enable).
+<br /><br />
+
 
 ## Known issues
 
 ### HTML Code Cleaner - Begin & End
 When using these both functions, all comment at the beginning of the code will be removed.<br>
-All other comments will keep but if the code starts with comments then these comments will be removed.alias
+All other comments will be kept but if the code starts with comments then these comments will be removed.
 
 
 ## Reference

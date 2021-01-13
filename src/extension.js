@@ -83,6 +83,9 @@ async function cleanCodeBegin() {
 	// Clean URL
 	docText = cleanURL(docText);
 
+	// Trim Spaces in Specified Tags
+	docText = trimTagText(docText);
+
 	// Apply all RegEx stored in the Extension's properties for the Begin script
 	docText = searchReplaceFromProperties(docText, "SearchReplaceBegin");
 
@@ -117,22 +120,21 @@ function cleanCodeEnd() {
 	// Get the selected text in the Active Editor
 	let docText = genFunc.getTextSelected(true);
 
-	// ****** MAIN PROCESS - Apply replacement ****** 
-	// TODO: 	Add a DOM to keep all A tag with FILE: protocol and replace \ by / and space by %20
-	// 				Must be executed before all other replacement - 
-
 	// Clean URL
 	docText = cleanURL(docText);
 
-
 	// Delete domain in "A href" and "IMG src"
 	docText = deleteDomains(docText);
+
+	// Trim Spaces in Specified Tags
+	docText = trimTagText(docText);
 
 	// Apply all RegEx stored in the Extension's properties for the Begin script
 	docText = searchReplaceFromProperties(docText, "SearchReplaceEnd");
 
 	// Convert French Number to replace space by no-blank-space
 	docText = setFrenchNumber(docText);
+
 
 	// Replace the content of the Active Editor with the new one cleanned
 	genFunc.updateEditor(docText, SelectedTextRange);
@@ -339,9 +341,9 @@ function cleanURL(docText) {
 	ATags.forEach(function (elem) {
 		// Trim spaces in both start and end of URL
 		elem.href = elem.href.trim();
-		
+
 		// EMAIL address
-		if (elem.href.match(/^mailto\:/gi) != null){
+		if (elem.href.match(/^mailto\:/gi) != null) {
 			// Retrive the first part of URL (from "mailto" to "?" all stuff after the symbol ? should not be touched)
 			let tmphref = elem.href.match(/^mailto:.+\?*/g);
 			// convert to lowercase
@@ -351,7 +353,7 @@ function cleanURL(docText) {
 			// reset the href of current element
 			elem.href = tmphref;
 		}
-		
+
 		// Replace space by %20
 		elem.href = elem.href.replace(/\s/g, '%20');
 
@@ -376,16 +378,84 @@ function cleanURL(docText) {
 	});
 
 	// Convert the DOM to text (HTML code)
-	docText =  myDOM.window.document.getElementsByTagName('body')[0].innerHTML;
+	docText = myDOM.window.document.getElementsByTagName('body')[0].innerHTML;
 
 	// I don't know why but JSDOM add "about:blank" in anchor link
 	// Remove it
 	docText = docText.replace(/about\:blank/gmi, "");
 
 	// add spaces both ends of A tags (extra spaces will be removed with the format document command)
-	docText = docText.replace(/(<a(.*?)href)/gmi, ' $1');
-	docText = docText.replace(/(<\/a>)/gmi, '$1 ');
+	docText = docText.replace(/(\w)(<a(.*?)href)/gmi, '$1 $2');
+	docText = docText.replace(/(<\/a>)(\w)/gmi, '$1 $2');
+
+	// Return the processed text
+	return docText;
+}
+
+
+
+/**
+ * Method that remove useless spaces in following Tags and inside class
+ * Tags: P, LI, ABBR
+ * @param {string} docText HTML code source to clean
+ * Return the HTML code with trimmed TAGs
+ */
+function trimTagText(docText) {
+	// If the Extension's property "trimSpaces" is set to TRUE
+		if (!vscode.workspace.getConfiguration("html-code-cleaner-tools").trimSpaces) {
+		// Return the docText without changes
+			return docText;
+		}
 	
+	// Create a DOM from the selected text
+	let myDOM = new JSDOM(docText);
+
+	// Retrieve all A tags in the DOM
+	let Tags = myDOM.window.document.querySelectorAll('*');
+
+	// Clear useless spaces inside class attributes of all Tags
+	Tags.forEach(function (elem) {
+		if (elem.className != '') {
+			elem.className = elem.className.trim().replace(/\s+/gmi, ' ');
+		}
+	});
+
+	// Trim spaces at both ends of the P tags
+	Tags = myDOM.window.document.querySelectorAll('p');
+	Tags.forEach(function (elem) {
+		elem.innerHTML = elem.innerHTML.trim();
+	});
+
+	// Trimm spaces at both ends of LI tags
+	Tags = myDOM.window.document.querySelectorAll('li');
+	Tags.forEach(function (elem) {
+		elem.innerHTML = elem.innerHTML.trim();
+	});
+
+	// ABBR Tags
+	Tags = myDOM.window.document.querySelectorAll('abbr');
+	// Trim spaces in title attribute
+	Tags.forEach(function (elem) {
+		elem.title = elem.title.trim();
+	});
+	// Trim spaces inside ABBR tags
+	Tags.forEach(function (elem) {
+		elem.innerHTML = elem.innerHTML.trim();
+	});
+	// Add space outside the both ends of ABBR tags
+	Tags.forEach(function (elem) {
+		elem.outerHTML = ' ' + elem.outerHTML + ' ';
+	});
+	
+	// Convert the DOM to text (HTML code)
+	docText = myDOM.window.document.getElementsByTagName('body')[0].innerHTML;
+
+	// Set spaces around the ABBR tags
+	// if ABBR tag is preceeded by: > - " / then remove space
+	docText = docText.replace(/(['>\-"\/]) +(<abbr)/gmi, '$1$2');
+	// if ABBR tag is succeeded by: , . ; then remove space
+	docText = docText.replace(/(<\/abbr>) +([,.;])/gmi, '$1$2');
+
 	// Return the processed text
 	return docText;
 }

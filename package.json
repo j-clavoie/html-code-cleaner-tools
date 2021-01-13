@@ -2,7 +2,7 @@
 	"name": "html-code-cleaner-tools",
 	"displayName": "HTML Code Cleaner",
 	"description": "Extension to remove/replace part of unwanted/useless code.",
-	"version": "0.0.12",
+	"version": "0.0.14",
 	"publisher": "j-clavoie",
 	"engines": {
 		"vscode": "^1.52.0"
@@ -102,7 +102,7 @@
 						},
 						{
 							"step": 4,
-							"description": "Delete P tags",
+							"description": "Delete empty P tags",
 							"search": "<p>(&#160;|&nbsp;|\\s)*<\\/p>",
 							"replace": "",
 							"multipass": false
@@ -166,6 +166,11 @@
 				},
 				"html-code-cleaner-tools.cleanURL": {
 					"description": "Enable/disable URL cleaning: Trim URL's spaces in A tags and IMG tags. Replace space by %20.",
+					"type": "boolean",
+					"default": true
+				},
+				"html-code-cleaner-tools.trimSpaces": {
+					"description": "Enable/disable removing useless space in P, ABBR and LI tags and inside all class attribute of all tags.",
 					"type": "boolean",
 					"default": true
 				}

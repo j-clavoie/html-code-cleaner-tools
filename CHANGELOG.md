@@ -1,5 +1,24 @@
 # Change Log
 
+## [0.0.14] - 2021-01-12
++ Add a remove/trim useless spaces function
+  + Function removes useless spaces in:
+    + All CLASS attribute of all Tags. 
+    + Both ends of P, LI and ABBR tags
+  + Function add spaces around ABBR tags
+    + If tag is preceeded by: > - " /<br>
+      Then space is removed
+    + If tag is succeded by: , . ;<br>
+      Then space is removed
+  + Add Extension's property to enable/disable this new function<br>
+  + Removed the regex to remove spaces in ```<li></li>``` that I added in version 0.0.13.
++ Update Readme file
+
+## [0.0.13] - 2021-01-12
++ Fix a little bug when cleanning link (A tag).<br>
+  Spaces were added both end of A tag.
++ Add in Extension's properties, in the "SearchReplaceEnd" property, a regex to remove spaces after and before ```<li></li>```
+
 ## [0.0.12] - 2021-01-11
 + Fix a regex
 
