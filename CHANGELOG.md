@@ -1,7 +1,10 @@
 # Change Log
 
-## [0.0.16] - 2021-01-XXXXXXXXXXXXXXXXXXXX
+## [0.0.17] - xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx
 
+
+## [0.0.16] - 2021-01-13
++ Fix some little bug with the ABBR cleaning space.
 
 ## [0.0.15] - 2021-01-13
 + Fix some little bug with the ABBR cleaning space.

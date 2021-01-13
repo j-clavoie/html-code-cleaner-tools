@@ -454,7 +454,7 @@ function trimTagText(docText) {
 	// if ABBR tag is preceeded by: > - " / then remove space
 	docText = docText.replace(/(['\(>\-"\/]) +(<abbr)/gmi, '$1$2');
 	// if ABBR tag is succeeded by: , . ; then remove space
-	docText = docText.replace(/(<\/abbr>) +([\),\-.";])/gmi, '$1$2');
+	docText = docText.replace(/(<\/abbr>) +([\),\-.'";])/gmi, '$1$2');
 
 	// Return the processed text
 	return docText;
