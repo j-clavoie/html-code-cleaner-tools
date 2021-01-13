@@ -83,11 +83,11 @@ async function cleanCodeBegin() {
 	// Clean URL
 	docText = cleanURL(docText);
 
-	// Trim Spaces in Specified Tags
-	docText = trimTagText(docText);
-
 	// Apply all RegEx stored in the Extension's properties for the Begin script
 	docText = searchReplaceFromProperties(docText, "SearchReplaceBegin");
+
+	// Trim Spaces in Specified Tags
+	docText = trimTagText(docText);
 
 	// Replace the content of the Active Editor with the new one cleanned
 	genFunc.updateEditor(docText, SelectedTextRange);
@@ -126,11 +126,11 @@ function cleanCodeEnd() {
 	// Delete domain in "A href" and "IMG src"
 	docText = deleteDomains(docText);
 
-	// Trim Spaces in Specified Tags
-	docText = trimTagText(docText);
-
 	// Apply all RegEx stored in the Extension's properties for the Begin script
 	docText = searchReplaceFromProperties(docText, "SearchReplaceEnd");
+
+	// Trim Spaces in Specified Tags
+	docText = trimTagText(docText);
 
 	// Convert French Number to replace space by no-blank-space
 	docText = setFrenchNumber(docText);
@@ -452,9 +452,9 @@ function trimTagText(docText) {
 
 	// Set spaces around the ABBR tags
 	// if ABBR tag is preceeded by: > - " / then remove space
-	docText = docText.replace(/(['>\-"\/]) +(<abbr)/gmi, '$1$2');
+	docText = docText.replace(/(['\(>\-"\/]) +(<abbr)/gmi, '$1$2');
 	// if ABBR tag is succeeded by: , . ; then remove space
-	docText = docText.replace(/(<\/abbr>) +([,.;])/gmi, '$1$2');
+	docText = docText.replace(/(<\/abbr>) +([\),\-.";])/gmi, '$1$2');
 
 	// Return the processed text
 	return docText;

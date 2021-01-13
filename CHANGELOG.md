@@ -1,5 +1,12 @@
 # Change Log
 
+## [0.0.16] - 2021-01-XXXXXXXXXXXXXXXXXXXX
+
+
+## [0.0.15] - 2021-01-13
++ Fix some little bug with the ABBR cleaning space.
++ Change order where sub-function are executed.
+
 ## [0.0.14] - 2021-01-12
 + Add a remove/trim useless spaces function
   + Function removes useless spaces in:
