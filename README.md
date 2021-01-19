@@ -11,6 +11,7 @@ This extension contains 3 functions for the moment.
 + **HTML - Convert special characters**: This function converts HTML special characters to the real humain readable character. (example: &amp;eacute; will be converted to é, &amp;amp; will be converted to &).
 For the moment, the function allows only conversion from HTML code to real character, not real character to HTML code.
 
+**To have information about Know bugs/Issues, consult the section"Known Issues" at the bottom of this file.**
 <br />
 <br />
 
@@ -157,8 +158,12 @@ This setting is to enable/disable the Trim useless Spaces step in both Begin and
 ## Known issues
 
 ### HTML Code Cleaner - Begin & End
-When using these both functions, all comment at the beginning of the code will be removed.<br>
-All other comments will be kept but if the code starts with comments then these comments will be removed.
++ When using these both functions, all comment at the beginning of the code will be removed.<br>
+  All other comments will be kept but if the code starts with comments then these comments will be removed.
+  
++ Only the BODY of the HTML code is returned by this extension.<br>
+  If the extension is run over a whole complete HTML code, the HEAD of the code will be removed.<br>
+  Workaround: Select only the inside of the BODY tag before to run Extension.
 
 
 ## Reference

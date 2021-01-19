@@ -426,7 +426,7 @@ function trimTagText(docText) {
 		elem.innerHTML = elem.innerHTML.trim();
 	});
 
-	// Trimm spaces at both ends of LI tags
+	// Trim spaces at both ends of LI tags
 	Tags = myDOM.window.document.querySelectorAll('li');
 	Tags.forEach(function (elem) {
 		elem.innerHTML = elem.innerHTML.trim();
@@ -452,9 +452,9 @@ function trimTagText(docText) {
 
 	// Set spaces around the ABBR tags
 	// if ABBR tag is preceeded by: > - " / then remove space
-	docText = docText.replace(/(['\(>\-"\/]) +(<abbr)/gmi, '$1$2');
+	docText = docText.replace(/(['\(>\-"\/\\]) +(<abbr)/gmi, '$1$2');
 	// if ABBR tag is succeeded by: , . ; then remove space
-	docText = docText.replace(/(<\/abbr>) +([\),\-.'";])/gmi, '$1$2');
+	docText = docText.replace(/(<\/abbr>) +(<\/|[\)\/,\-\.%!\?\\'";])/gmi, '$1$2');
 
 	// Return the processed text
 	return docText;

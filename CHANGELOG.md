@@ -1,7 +1,9 @@
 # Change Log
 
-## [0.0.17] - xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx
+## [0.0.18] - 2021-xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx
 
+## [0.0.17] - 2021-01-19
++ Fix some little bug with the ABBR cleaning space. Spaces removed after the closing tag for some additional characters
 
 ## [0.0.16] - 2021-01-13
 + Fix some little bug with the ABBR cleaning space.
