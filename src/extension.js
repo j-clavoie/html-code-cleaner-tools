@@ -402,11 +402,11 @@ function cleanURL(docText) {
  */
 function trimTagText(docText) {
 	// If the Extension's property "trimSpaces" is set to TRUE
-		if (!vscode.workspace.getConfiguration("html-code-cleaner-tools").trimSpaces) {
+	if (!vscode.workspace.getConfiguration("html-code-cleaner-tools").trimSpaces) {
 		// Return the docText without changes
-			return docText;
-		}
-	
+		return docText;
+	}
+
 	// Create a DOM from the selected text
 	let myDOM = new JSDOM(docText);
 
@@ -438,23 +438,51 @@ function trimTagText(docText) {
 	Tags.forEach(function (elem) {
 		elem.title = elem.title.trim();
 	});
+
 	// Trim spaces inside ABBR tags
+	let spcStart, spcEnd;
 	Tags.forEach(function (elem) {
+		// If innerHTML starts with space, set or not set space in variable
+		if (elem.innerHTML.match(/^\s+/gi) != null) {
+			spcStart = ' ';
+		} else {
+			spcStart = '';
+		}
+		// If innerHTML ends with space, set or not set space in variable
+		if (elem.innerHTML.match(/\s+$/gi) != null) {
+			spcEnd = ' ';
+		} else {
+			spcEnd = '';
+		}
+		// remove spaces both ends of innerHTML
 		elem.innerHTML = elem.innerHTML.trim();
+		// set spaces, if required outside the Tag
+		elem.outerHTML = spcStart + elem.outerHTML + spcEnd;
 	});
-	// Add space outside the both ends of ABBR tags
+
+	// STRONG Tags
+	Tags = myDOM.window.document.querySelectorAll('strong');
 	Tags.forEach(function (elem) {
-		elem.outerHTML = ' ' + elem.outerHTML + ' ';
+		// If innerHTML starts with space, set or not set space in variable
+		if (elem.innerHTML.match(/^\s+/gi) != null) {
+			spcStart = ' ';
+		} else {
+			spcStart = '';
+		}
+		// If innerHTML ends with space, set or not set space in variable
+		if (elem.innerHTML.match(/\s+$/gi) != null) {
+			spcEnd = ' ';
+		} else {
+			spcEnd = '';
+		}
+		// remove spaces both ends of innerHTML
+		elem.innerHTML = elem.innerHTML.trim();
+		// set spaces, if required outside the Tag
+		elem.outerHTML = spcStart + elem.outerHTML + spcEnd;
 	});
-	
+
 	// Convert the DOM to text (HTML code)
 	docText = myDOM.window.document.getElementsByTagName('body')[0].innerHTML;
-
-	// Set spaces around the ABBR tags
-	// if ABBR tag is preceeded by: > - " / then remove space
-	docText = docText.replace(/(['\(>\-"\/\\]) +(<abbr)/gmi, '$1$2');
-	// if ABBR tag is succeeded by: , . ; then remove space
-	docText = docText.replace(/(<\/abbr>) +(<\/|[\)\/,\-\.%!\?\\'";])/gmi, '$1$2');
 
 	// Return the processed text
 	return docText;

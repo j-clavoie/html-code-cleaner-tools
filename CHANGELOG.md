@@ -1,6 +1,10 @@
 # Change Log
 
-## [0.0.18] - 2021-xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx
+## [0.0.19] - 2021-xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx
+
+## [0.0.18] - 2021-01-19
++ Change the way spaces are managed for ABBR tags. Analaze if spaces already exist inside the tag, if yes, add outside of it.
++ Add the spaces management for STRONG tag too.
 
 ## [0.0.17] - 2021-01-19
 + Fix some little bug with the ABBR cleaning space. Spaces removed after the closing tag for some additional characters
