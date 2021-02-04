@@ -1,6 +1,12 @@
 # Change Log
 
-## [0.0.19] - 2021-xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx
+## [0.0.21] - 2021-############################
+
+## [0.0.20] - 2021-02-04
++ Fix issue where Comments at the beginning of the code were removed.<br>Now, comments are kept in memory and add at the end of processes.alias
+
+## [0.0.19] - 2021-01-26
++ Update dependencies
 
 ## [0.0.18] - 2021-01-19
 + Change the way spaces are managed for ABBR tags. Analaze if spaces already exist inside the tag, if yes, add outside of it.

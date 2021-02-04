@@ -74,6 +74,10 @@ async function cleanCodeBegin() {
 	// Get the selected text in the Active Editor
 	let docText = genFunc.getTextSelected(true);
 
+	// Keep comment at the begging of the selected text
+	// I don't know why but comment at the beggining are removed
+	const commentAtBeging = keepCommentAtBeginning(docText);
+
 	// Delete useless empty SPAN and SPAN LANG of the text of in the code
 	docText = deleteUselessSpan(docText, textLang);
 
@@ -88,6 +92,9 @@ async function cleanCodeBegin() {
 
 	// Trim Spaces in Specified Tags
 	docText = trimTagText(docText);
+
+	// Reset comment was present at the beginning of the code
+	docText = commentAtBeging + docText;
 
 	// Replace the content of the Active Editor with the new one cleanned
 	genFunc.updateEditor(docText, SelectedTextRange);
@@ -120,6 +127,10 @@ function cleanCodeEnd() {
 	// Get the selected text in the Active Editor
 	let docText = genFunc.getTextSelected(true);
 
+	// Keep comment at the begging of the selected text
+	// I don't know why but comment at the beggining are removed
+	const commentAtBeging = keepCommentAtBeginning(docText);
+
 	// Clean URL
 	docText = cleanURL(docText);
 
@@ -135,6 +146,8 @@ function cleanCodeEnd() {
 	// Convert French Number to replace space by no-blank-space
 	docText = setFrenchNumber(docText);
 
+	// Reset comment was present at the beginning of the code
+	docText = commentAtBeging + docText;
 
 	// Replace the content of the Active Editor with the new one cleanned
 	genFunc.updateEditor(docText, SelectedTextRange);
@@ -486,4 +499,21 @@ function trimTagText(docText) {
 
 	// Return the processed text
 	return docText;
+}
+
+
+/**
+ * 
+ * @param {String} vText Text to use to keep comment
+ */
+function keepCommentAtBeginning(vText){
+	const commentAtBegin = vText.match(/^\s*(<!--(.|\s)*?-->\s*)*/)[0];
+	// Usually if nothing match the value of "commentAtBegin" will return ''
+	// "IF" below is to be sure that the function will return something if error occurs
+	if (commentAtBegin != null || commentAtBegin != undefined){
+		return commentAtBegin;
+	} else {
+		return '';
+	}
+
 }
