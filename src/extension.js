@@ -80,9 +80,9 @@ async function cleanCodeBegin() {
 
 	// PRE tags push in array and replaced by code
 	let PREtag = [];
-	const nbPRE = docText.match(/<(?!\/)pre(.*|\s*)*?(<\/pre>)/gmi).length;
+	const nbPRE = docText.match(/<(?!\/)pre(.*|\s*)*?(<\/pre>)/gmi);
 	if ( nbPRE ){
-		for (let prex=0; prex<nbPRE; prex++){
+		for (let prex=0; prex<nbPRE.length; prex++){
 			PREtag.push( docText.match(/<(?!\/)pre(.*|\s*)*?(<\/pre>)/mi)[0] );
 			docText = docText.replace(/<(?!\/)pre(.*|\s*)*?(<\/pre>)/mi, '<tmpre>' + prex + '</tmpre>');
 		}
@@ -152,9 +152,9 @@ function cleanCodeEnd() {
 
 	// PRE tags push in array and replaced by code
 	let PREtag = [];
-	const nbPRE = docText.match(/<(?!\/)pre(.*|\s*)*?(<\/pre>)/gmi).length;
-	if ( nbPRE ){
-		for (let prex=0; prex<nbPRE; prex++){
+	const nbPRE = docText.match(/<(?!\/)pre(.*|\s*)*?(<\/pre>)/gmi);
+	if ( nbPRE != null){
+		for (let prex=0; prex<nbPRE.length; prex++){
 			PREtag.push( docText.match(/<(?!\/)pre(.*|\s*)*?(<\/pre>)/mi)[0] );
 			docText = docText.replace(/<(?!\/)pre(.*|\s*)*?(<\/pre>)/mi, '<tmpre>' + prex + '</tmpre>');
 		}
