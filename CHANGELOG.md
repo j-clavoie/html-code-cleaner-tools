@@ -1,12 +1,17 @@
 # Change Log
 
-## [0.0.21] - 2021-############################
+## [0.0.22] - 2021-######################################
+
+## [0.0.21] - 2021-02-10
++ Add a way to keep "untouched" PRE tags. So, all PRE tags are NOT affected by any changes from this extension.<br>
+  no trim, no search and replace, no url clean/domain remove...<br>
+  Absolutely no change inside PRE, classes and ID are kept too
 
 ## [0.0.20] - 2021-02-04
 + Fix issue where Comments at the beginning of the code were removed.<br>Now, comments are kept in memory and add at the end of processes.alias
 
 ## [0.0.19] - 2021-01-26
-+ Update dependencies
++ Updated dependencies
 
 ## [0.0.18] - 2021-01-19
 + Change the way spaces are managed for ABBR tags. Analaze if spaces already exist inside the tag, if yes, add outside of it.

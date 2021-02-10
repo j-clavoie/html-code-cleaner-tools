@@ -74,9 +74,21 @@ async function cleanCodeBegin() {
 	// Get the selected text in the Active Editor
 	let docText = genFunc.getTextSelected(true);
 
-	// Keep comment at the begging of the selected text
+	// Keep comments at the begging of the selected text
 	// I don't know why but comment at the beggining are removed
 	const commentAtBeging = keepCommentAtBeginning(docText);
+
+	// PRE tags push in array and replaced by code
+	let PREtag = [];
+	const nbPRE = docText.match(/<(?!\/)pre(.*|\s*)*?(<\/pre>)/gmi).length;
+	if ( nbPRE ){
+		for (let prex=0; prex<nbPRE; prex++){
+			PREtag.push( docText.match(/<(?!\/)pre(.*|\s*)*?(<\/pre>)/mi)[0] );
+			docText = docText.replace(/<(?!\/)pre(.*|\s*)*?(<\/pre>)/mi, '<tmpre>' + prex + '</tmpre>');
+		}
+	} else {
+		PREtag = null;
+	}
 
 	// Delete useless empty SPAN and SPAN LANG of the text of in the code
 	docText = deleteUselessSpan(docText, textLang);
@@ -95,6 +107,13 @@ async function cleanCodeBegin() {
 
 	// Reset comment was present at the beginning of the code
 	docText = commentAtBeging + docText;
+
+	// PRE tags pushback from array to the coded place
+	if (PREtag != null){
+		for (let prey=0; prey<PREtag.length; prey++){
+			docText = docText.replace('<tmpre>' + prey + '</tmpre>', PREtag[prey]);
+		}
+	}
 
 	// Replace the content of the Active Editor with the new one cleanned
 	genFunc.updateEditor(docText, SelectedTextRange);
@@ -131,6 +150,18 @@ function cleanCodeEnd() {
 	// I don't know why but comment at the beggining are removed
 	const commentAtBeging = keepCommentAtBeginning(docText);
 
+	// PRE tags push in array and replaced by code
+	let PREtag = [];
+	const nbPRE = docText.match(/<(?!\/)pre(.*|\s*)*?(<\/pre>)/gmi).length;
+	if ( nbPRE ){
+		for (let prex=0; prex<nbPRE; prex++){
+			PREtag.push( docText.match(/<(?!\/)pre(.*|\s*)*?(<\/pre>)/mi)[0] );
+			docText = docText.replace(/<(?!\/)pre(.*|\s*)*?(<\/pre>)/mi, '<tmpre>' + prex + '</tmpre>');
+		}
+	} else {
+		PREtag = null;
+	}
+
 	// Clean URL
 	docText = cleanURL(docText);
 
@@ -149,6 +180,13 @@ function cleanCodeEnd() {
 	// Reset comment was present at the beginning of the code
 	docText = commentAtBeging + docText;
 
+	// PRE tags pushback from array to the coded place
+	if (PREtag != null){
+		for (let prey=0; prey<PREtag.length; prey++){
+			docText = docText.replace('<tmpre>' + prey + '</tmpre>', PREtag[prey]);
+		}
+	}
+	
 	// Replace the content of the Active Editor with the new one cleanned
 	genFunc.updateEditor(docText, SelectedTextRange);
 
