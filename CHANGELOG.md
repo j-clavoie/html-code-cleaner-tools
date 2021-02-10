@@ -1,7 +1,8 @@
 # Change Log
 
-## [0.0.22] - 2021-######################################
+## [1.0.1] - 2021-##########################################
 
+## [1.0.0] - 2021-02-10
 ## [0.0.21] - 2021-02-10
 + Add a way to keep "untouched" PRE tags. So, all PRE tags are NOT affected by any changes from this extension.<br>
   no trim, no search and replace, no url clean/domain remove...<br>
