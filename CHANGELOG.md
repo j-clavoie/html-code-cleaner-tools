@@ -1,6 +1,9 @@
 # Change Log
 
-## [1.0.1] - 2021-##########################################
+## [1.0.1] - 2021-02-xxxxxxxxxxxxxxxxxxxxxxxxxx
+
+## [1.0.1] - 2021-02-11
++ Downgrade the available version of VSCode in package.json
 
 ## [1.0.0] - 2021-02-10
 ## [0.0.21] - 2021-02-10
