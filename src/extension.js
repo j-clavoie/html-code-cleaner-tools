@@ -80,11 +80,11 @@ async function cleanCodeBegin() {
 
 	// PRE tags push in array and replaced by code
 	let PREtag = [];
-	const nbPRE = docText.match(/<(?!\/)pre(.*|\s*)*?(<\/pre>)/gmi);
+	const nbPRE = docText.match(/<(?!\/)pre(.|\s)*?(<\/pre>)/gmi);
 	if ( nbPRE ){
 		for (let prex=0; prex<nbPRE.length; prex++){
-			PREtag.push( docText.match(/<(?!\/)pre(.*|\s*)*?(<\/pre>)/mi)[0] );
-			docText = docText.replace(/<(?!\/)pre(.*|\s*)*?(<\/pre>)/mi, '<tmpre>' + prex + '</tmpre>');
+			PREtag.push( docText.match(/<(?!\/)pre(.|\s)*?(<\/pre>)/mi)[0] );
+			docText = docText.replace(/<(?!\/)pre(.|\s)*?(<\/pre>)/mi, '<tmpre>' + prex + '</tmpre>');
 		}
 	} else {
 		PREtag = null;
@@ -152,11 +152,11 @@ function cleanCodeEnd() {
 
 	// PRE tags push in array and replaced by code
 	let PREtag = [];
-	const nbPRE = docText.match(/<(?!\/)pre(.*|\s*)*?(<\/pre>)/gmi);
+	const nbPRE = docText.match(/<(?!\/)pre(.|\s)*?(<\/pre>)/gmi);
 	if ( nbPRE != null){
 		for (let prex=0; prex<nbPRE.length; prex++){
-			PREtag.push( docText.match(/<(?!\/)pre(.*|\s*)*?(<\/pre>)/mi)[0] );
-			docText = docText.replace(/<(?!\/)pre(.*|\s*)*?(<\/pre>)/mi, '<tmpre>' + prex + '</tmpre>');
+			PREtag.push( docText.match(/<(?!\/)pre(.|\s)*?(<\/pre>)/mi)[0] );
+			docText = docText.replace(/<(?!\/)pre(.|\s)*?(<\/pre>)/mi, '<tmpre>' + prex + '</tmpre>');
 		}
 	} else {
 		PREtag = null;
@@ -176,6 +176,9 @@ function cleanCodeEnd() {
 
 	// Convert French Number to replace space by no-blank-space
 	docText = setFrenchNumber(docText);
+
+	// Add no blank space inside empty DIV with classe (ex.:  <div class="clearfix">&#160;</div>)
+	//docText = set_NBSP_Empty_DIV(docText);
 
 	// Reset comment was present at the beginning of the code
 	docText = commentAtBeging + docText;
